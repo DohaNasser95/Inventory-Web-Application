@@ -1,0 +1,223 @@
+{% extends 'base.html' %}
+{% include 'header.html' %}
+
+{% block title %} Home {% endblock %}
+
+{% block body %} 
+<div class="container">
+
+
+<div  class="row">
+    <div class="col md-12">
+        <div class="jumbotron p-3">
+
+            <h2> <b> Manage Product</b>  <button type="button" class="btn btn-success float-right" 
+                data-toggle="modal" data-target="#mymodal"> Add Product</button></h2>
+                <form action="/deleterecord" method="post" class="float-right ">  
+                  Product Id <input type="text"  name="Did" maxlength="4" size="4">  
+                  <input type="submit" class="btn btn-danger" value="Delete">  
+               </form>
+                <h4> <pre class="tab float-right "> <a href="viewProduct.html">View Product </a> </pre></h4>
+
+                <table class="table table-hover table-dark"> 
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Qty</th>
+                        <th class="float-right">Action</th>
+                    </tr>
+                    
+                     {% for row in rows %}  
+       
+        <tr>  
+            <td>{{row["prod_id"]}}</td>  
+            <td>{{row["prod_name"]}}</td>  
+            <td>{{row["prod_qty"]}}</td> 
+
+                        
+
+                        <td>
+                            <a href="/updateProduct/{{row['prod_id']}}" class="btn btn-warning btn-xs float-right" data-toggle="modal" data-target="#modaledit{{row['prod_id']}}"> Edit </a>
+                            
+                           </td>
+                            
+
+                        
+                    </tr>
+                   
+
+                    <!-- Modal Edit Product-->
+<div id="modaledit{{row['prod_id']}}" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+  
+  
+       <div class="modal-content">
+  
+  
+          <div class="modal-header">
+  
+  
+             <h4 class="modal-title">Update Information</h4>
+  
+  
+          </div>
+  
+  
+          <div class="modal-body">
+  
+  
+             <form action="/updateProduct" method="POST">
+  
+  
+                <div class="form-group">
+  
+  
+                   <label>ID</label>
+                    <input type="hidden"  name="id" value="{{row['prod_id']}}">
+  
+                   
+  
+                </div>
+  
+  
+  
+                <div class="form-group">
+  
+  
+                   <label>Name:</label>
+                   <input type="text" class="form-control" name="prodname" value="{{row['prod_name']}}">
+  
+  
+                </div>
+
+                <div class="form-group">
+  
+  
+                  <label>Qty:</label>
+                  <input type="text" class="form-control" name="prodQty" value=" {{row['prod_qty']}}">
+ 
+ 
+               </div>
+  
+  
+  
+  
+                <div class="form-group">
+  
+  
+                   <button class="btn btn-primary" type="submit">Update</button>
+  
+  
+                </div>
+  
+  
+             </form>
+  
+  
+          </div>
+  
+  
+          <div class="modal-footer">
+  
+  
+             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+  
+  
+          </div>
+  
+  
+       </div>
+  
+  
+    </div>
+  
+ </div>
+  
+  
+{% endfor%}
+                   
+                </table>
+
+        </div>
+<!-- Modal Add Product-->
+ 
+ 
+<div id="mymodal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+       <div class="modal-content">
+          <div class="modal-header">
+  
+             <h4 class="modal-title">Add Product</h4>
+          </div>
+          <div class="modal-body">
+  
+             <form action="/insert" method="post">
+  
+  
+                <div class="form-group">
+  
+                   <label>ID:</label>
+                   <input type="hidden" class="form-control" name="ID" required="">
+  
+  
+                </div>
+  
+  
+                 <div class="form-group">
+  
+  
+                   <label>Name:</label>
+                   <input type="name" class="form-control" name="name" required="">
+  
+  
+                </div>
+                <div class="form-group">
+  
+  
+                  <label>Qty:</label>
+                  <input type="name" class="form-control" name="Qty" required="1">
+ 
+ 
+               </div>
+  
+  
+                 
+  
+  
+  
+                <div class="form-group">
+  
+  
+                   <button class="btn btn-primary" type="submit">Add Product</button>
+  
+  
+                </div>
+  
+  
+             </form>
+  
+  
+          </div>
+  
+          <div class="modal-footer">
+ 
+ 
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+ 
+ 
+         </div>
+          
+  
+  
+       </div>
+  
+  
+    </div>
+  
+  
+ </div>
+    </div>
+
+</div>
+</div>
+{% endblock %}

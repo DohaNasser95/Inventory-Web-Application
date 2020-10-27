@@ -1,0 +1,48 @@
+
+{% extends 'base.html' %}
+{% include 'header.html' %}
+
+{% block title %} Home {% endblock %}
+
+{% block body %} 
+<div class="container">
+
+
+<div  class="row">
+    <div class="col md-12">
+        <div class="jumbotron p-3"> 
+  
+    <h2> <b> Product Movement Information</b>  
+
+        <table class="table table-hover table-dark"> 
+           
+                    <tr>
+                        <td>Movement ID</td>  
+                        <td>timestamp</td>  
+                        <td>fromLocation</td>
+                        <td>toLocation</td>
+                        <td>product ID</td>
+                        <td>Qty</td>
+                    </tr> 
+      
+       
+    {% for row in rows %}  
+       
+        <tr>  
+            <td>{{row["movement_id"]}}</td>  
+            <td>{{row["timestamp"]}}</td>    
+            <td>{{row["from_location"]}}</td> 
+            <td>{{row["to_location"]}}</td> 
+            <td>{{row["product_id"]}}</td> 
+            <td>{{row["pqty"]}}</td>  
+        </tr>  
+       
+    {% endfor %}  
+</table>  
+<br><br>  
+
+
+   
+<a href="/">Go back to home page</a>  
+   
+{% endblock%}

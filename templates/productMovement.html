@@ -1,0 +1,282 @@
+{% extends 'base.html' %}
+{% include 'header.html' %}
+
+{% block title %} Home {% endblock %}
+
+{% block body %} 
+<div class="container">
+
+
+<div  class="row">
+    <div class="col md-12">
+        <div class="jumbotron p-3">
+
+            <h2> <b> Manage ProductMovement</b>  <button type="button" class="btn btn-success float-right" 
+                data-toggle="modal" data-target="#mymodal"> Add ProductMovement</button> </h2>
+                <form action="/deleterecord2" method="post" class="float-right"> 
+                  Movement Id <input type="text"  name="id" maxlength="4" size="4">  
+                  <input type="submit" class="btn btn-danger" value="Delete">     
+                </form>
+                <h4> <pre class="tab float-right "> <a href="viewProductMov.html">View Product Movement</a> </pre></h4>
+
+                <table class="table table-hover table-dark"> 
+                    <tr>
+                        <th>move_id</th>
+                        <th>timestamp</th>
+                        <th>from_loc</th>
+                        <th>to_loc</th>
+                        <th>product_id</th>
+                        <th>qty</th>
+                        <th class="float-right">Action</th>
+                    </tr>
+                    {% for row in rows %}  
+       
+                    <tr>  
+                        <td>{{row["movement_id"]}}</td>  
+                        <td>{{row["timestamp"]}}</td>  
+                        <td>{{row["from_location"]}}</td>
+                        <td>{{row["to_location"]}}</td>
+                        <td>{{row["product_id"]}}</td>
+                        <td>{{row["qty"]}}</td>
+
+                        
+
+                        <td>
+                            <a href="/updateProductMove/{{row['movement_id']}}" class="btn btn-warning btn-xs float-right" data-toggle="modal" data-target="#modaledit{{row['movement_id']}}"> Edit </a>
+                         </td>
+
+                        
+                    </tr>
+                    
+
+                    <!-- Modal Edit ProductMovement-->
+<div id="modaledit{{row['movement_id']}}" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+  
+  
+       <div class="modal-content">
+  
+  
+          <div class="modal-header">
+  
+  
+             <h4 class="modal-title">Edit ProductMovement</h4>
+  
+  
+          </div>
+  
+  
+          <div class="modal-body">
+  
+  
+             <form action="/updateProductMove" method="POST">
+  
+  
+                <div class="form-group">
+  
+  
+                   <label>movement_id</label>
+                    <input type="hidden"   type="hidden" name="move_id"  required="{{row['movement_id']}}">
+  
+                   
+  
+                </div>
+  
+  
+  
+                <div class="form-group">
+  
+  
+                   <label>timestamp:</label>
+                   <input type="text" class="form-control" name="ts" value="{{row['timestamp']}}">
+  
+  
+                </div>
+
+                <div class="form-group">
+  
+  
+                    <label>from_location:</label>
+                    <input type="text" class="form-control" name="from_loc" value="{{row['from_location']}}">
+   
+   
+                 </div>
+
+                 <div class="form-group">
+  
+  
+                    <label>to_location:</label>
+                    <input type="text" class="form-control" name="to_loc" value="{{row['to_location']}}">
+   
+   
+                 </div>
+                 <div class="form-group">
+  
+  
+                    <label>product_id:</label>
+                    <input type="text" class="form-control" name="p_id" value="{{row['product_id']}}">
+   
+   
+                 </div>
+
+                 <div class="form-group">
+  
+  
+                    <label>qty:</label>
+                    <input type="text" class="form-control" name="qty" value="{{row['qty']}}">
+   
+   
+                 </div>
+  
+  
+  
+  
+                <div class="form-group">
+  
+  
+                   <button class="btn btn-primary" type="submit">Edit ProductMovement</button>
+  
+  
+                </div>
+  
+  
+             </form>
+  
+  
+          </div>
+  
+  
+          <div class="modal-footer">
+  
+  
+             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+  
+  
+          </div>
+  
+  
+       </div>
+  
+  
+    </div>
+  
+ </div>
+  
+  
+{% endfor %}
+                   
+                </table>
+
+        </div>
+<!-- Modal move ProductMovement-->
+ 
+ 
+<div id="mymodal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+       <div class="modal-content">
+          <div class="modal-header">
+  
+             <h4 class="modal-title">Add ProductMovement</h4>
+          </div>
+          <div class="modal-body">
+  
+             <form action="/Move" method="post">
+  
+  
+                <div class="form-group">
+  
+  
+                    <label>movement_id</label>
+                     <input type="hidden" class="form-control" name="move_id" required="">
+   
+                    
+   
+                 </div>
+   
+   
+   
+                 <div class="form-group">
+   
+   
+                    <label>timestamp:</label>
+                    <input type="name" class="form-control" name="ts" required="">
+   
+   
+                 </div>
+ 
+                 <div class="form-group">
+   
+   
+                     <label>from_location:</label>
+                     <input type="name" class="form-control" name="from_loc" required="">
+    
+    
+                  </div>
+ 
+                  <div class="form-group">
+   
+   
+                     <label>to_location:</label>
+                     <input type="name" class="form-control" name="to_loc" required="">
+    
+    
+                  </div>
+                  <div class="form-group">
+   
+   
+                     <label>product_id:</label>
+                     <input type="name" class="form-control" name="p_id" required="">
+    
+    
+                  </div>
+ 
+                  <div class="form-group">
+   
+   
+                     <label>qty:</label>
+                     <input type="name" class="form-control" name="qty" required="">
+    
+    
+                  </div>
+  
+  
+                 
+  
+  
+  
+                <div class="form-group">
+  
+  
+                   <button class="btn btn-primary" type="submit">Add ProductMovement</button>
+  
+  
+                </div>
+  
+  
+             </form>
+  
+  
+          </div>
+  
+          <div class="modal-footer">
+ 
+ 
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+ 
+ 
+         </div>
+          
+  
+  
+       </div>
+  
+  
+    </div>
+  
+  
+ </div>
+    </div>
+
+</div>
+</div>
+{% endblock %}
